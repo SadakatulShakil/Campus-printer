@@ -35,7 +35,21 @@ class _QrScannerPageState extends State<QrScannerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.networkName),
+        backgroundColor: Colors.black.withOpacity(0.8), // 80% transparent
+        elevation: 0,
+        title: Text(
+          widget.networkName,
+          style: const TextStyle(color: Colors.white), // Keep text visible
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+          onPressed: () {
+            if (isScanning) {
+              cameraController.stop();
+            }
+            Get.back();
+          },
+        ),
       ),
       body: MobileScanner(
         controller: cameraController,

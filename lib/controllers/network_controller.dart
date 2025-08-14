@@ -13,6 +13,13 @@ class NetworkController extends GetxController {
   final isCallLoading = false.obs;
   final db = Get.find<DBService>();
 
+  var documents = [
+    "Passport",
+    "National ID",
+    "Driving License",
+    "Birth Certificate",
+    "Utility Bill"
+  ].obs;
 
   @override
   void onInit() {
@@ -37,7 +44,8 @@ class NetworkController extends GetxController {
 
   Future<void> deleteNetwork(int id) async {
     await db.deleteNetwork(id);
-    Get.snackbar("Delete", "The network deleted successfully.", duration: const Duration(seconds: 1));
+    Get.snackbar("Delete", "The network deleted successfully.", duration: const Duration(seconds: 1),
+        snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red.shade900, colorText: Colors.white);
     await loadNetworks();
   }
 
