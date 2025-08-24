@@ -46,7 +46,6 @@ class _AddNetworkPageState extends State<AddNetworkPage> {
 
     controller.addNetwork(widget.qrData, username, password);
     widget.onNetworkAdded?.call();
-    Get.back();
   }
 
   @override
@@ -65,18 +64,18 @@ class _AddNetworkPageState extends State<AddNetworkPage> {
           onPressed: () => Get.back(),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(height: 50),
               CircleAvatar(
-                radius: 40,
+                radius: 60,
                 backgroundColor: const Color(0xFF1E1E1E),
                 child: Image.asset(
-                  'assets/logo/qr_logo.png',
-                  color: Colors.white,
+                  'assets/icon/brand_logo.png',
                 ),
               ),
               const SizedBox(height: 20),

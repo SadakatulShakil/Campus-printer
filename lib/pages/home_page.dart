@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_printer/controllers/network_controller.dart';
@@ -101,8 +103,9 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           itemBuilder: (context, index) {
             final item = controller.networks[index];
-            final networkName =
-            item.qrData.isNotEmpty ? item.qrData : 'Network ${index + 1}';
+            final networkName = item.qrData.isNotEmpty
+                ? (jsonDecode(item.qrData)['NETWORK_URL'] ?? 'Network ${index + 1}')
+                : 'Network ${index + 1}';
             return Card(
               color: Colors.grey[850], // Dark card color
               elevation: 4,
@@ -133,16 +136,6 @@ class HomePage extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: () async {
-                          // final scannedQr = await Get.to<String>(
-                          //         () => QrScannerPage(networkName));
-                          // if (scannedQr != null && scannedQr.isNotEmpty) {
-                          //   controller.callPrintApi(
-                          //     item.username,
-                          //     item.password,
-                          //     item.qrData,
-                          //     scannedQr,
-                          //   );
-                          // }
                           Get.to(DocumentsPage(
                             networkName: networkName,
                             qrData: item.qrData,
@@ -163,7 +156,7 @@ class HomePage extends StatelessWidget {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              '${item.qrData}\nUser: ${item.username}',
+                              'User: ${item.username}\nStart printing now',
                               style: const TextStyle(
                                 fontSize: 13,
                                 color: Colors.white70,
